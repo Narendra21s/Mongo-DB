@@ -1,4 +1,8 @@
-const { UserModel, BookModel } = require("../modals/index");
+// const { UserModel, BookModel } = require("../model/index");
+const BookModel = require("../model/book-model");
+const UserModel = require("../model/user-model");
+// const issuedBook = require("../DTOs/book- dto");
+const IssuedBook = require("../DTOs/book- dto");
 
 // export.getAllBook=()=>{};
 const getAllBooks = async (req, res) => {
@@ -38,6 +42,8 @@ const getAllIssuedBooks = async (req, res) => {
 
   // Data Transfer Object (DTO)
 
+  const issuedBooks = users.map((each) => new IssuedBook(each));
+
   if (issuedBooks.length === 0) {
     return res.status(404).json({
       success: false,
@@ -51,4 +57,45 @@ const getAllIssuedBooks = async (req, res) => {
   });
 };
 
-module.exports = { getAllBooks, getSingleBookById, getAllIssuedBooks };
+const addNewBook = async (req, res) => {
+  const { data } = req.body;
+  if (!data) {
+    return res.status(404).json({
+      success: false,
+      msg: "No data to add  A Book",
+    });
+  }
+  await BookModel.create(data);
+  const allBooks = await BookModel.find();
+  return res.status(200).json({
+    success: true,
+    msg: "Added Book successfully",
+    data: allBooks,
+  });
+};
+
+const updateBookById = async (req, res) => {
+  const { id } = req.params;
+  const { data } = req.body;
+
+  const updatedBook = await BookModel.findOneAndUpdate(
+    {
+      _id: id,
+    },
+    data,
+    { new: true }
+  );
+  return res.status(201).json({
+    success: true,
+    msg: "Updated the book data",
+    data: updatedBook,
+  });
+};
+
+module.exports = {
+  getAllBooks,
+  getSingleBookById,
+  getAllIssuedBooks,
+  addNewBook,
+  updateBookById,
+};

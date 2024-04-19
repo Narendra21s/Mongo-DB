@@ -1,4 +1,4 @@
-const UserModel = require("./user-modal");
-const BookModel = require("./book-modal");
+// const userModel = require("./user-model");
+// const bookModel = require("./book-model");
 
-module.exports = { UserModal, BookModal };
+// module.exports = { userModal, bookModal };

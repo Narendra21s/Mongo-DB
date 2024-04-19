@@ -5,23 +5,23 @@ const Schema = mongoose.Schema;
 const bookSchema = new Schema(
   {
     name: {
-      type: string,
+      type: String,
       required: true,
     },
     author: {
-      type: string,
+      type: String,
       required: true,
     },
     price: {
-      type: string,
+      type: String,
       required: true,
     },
     genre: {
-      type: string,
+      type: String,
       required: true,
     },
     publisher: {
-      type: string,
+      type: String,
       required: true,
     },
   },
