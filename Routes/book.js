@@ -19,3 +19,5 @@ router.get("/:id", getSingleBookById);
 router.get("/issued/by-user", getAllIssuedBooks);
 router.post("/", addNewBook);
 router.put("/updateBook/:id", updateBookById);
+
+module.exports = router;
